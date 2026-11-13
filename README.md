@@ -1,135 +1,302 @@
-Medical-Heart-Disease-End-2-End-Predictor
+- Look for final Project At **![https://github.com/shsarv/Cardio-Monitor](https://github.com/shsarv/Cardio-Monitor)**
 
-An end-to-end machine learning project that predicts whether a patient is likely to have heart disease from routine clinical measurements. It covers the full pipeline: data ingestion, cleaning, feature engineering, model training and evaluation, and deployment as a web app that returns an instant risk prediction.
+<div align="center">
 
-Disclaimer: This tool is for educational and decision-support purposes only. It is not a substitute for professional medical diagnosis or advice.
+# 🫀 Cardio Monitor — Heart Disease Prediction Web App
 
-Table of Contents
-Problem Statement
-Input Features
-Output
-Pipeline
-Tech Stack
-Project Structure
-Installation
-Usage
-Results
-Docker
-Key Benefits
-Future Work
-Contributing
-License
-Problem Statement
+[![Python](https://img.shields.io/badge/Python-3.7+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-Web%20App-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![Accuracy](https://img.shields.io/badge/Accuracy-92%25-brightgreen?style=for-the-badge)]()
+[![License](https://img.shields.io/badge/License-MIT-1abc9c?style=for-the-badge)](LICENSE)
 
-Heart disease is one of the leading causes of death worldwide, and early detection greatly improves outcomes. This project uses patient data to classify each person as at risk or not at risk, giving clinicians and users a fast, data-driven screening aid.
+> **Cardio Monitor** is a full-stack web application that predicts whether a patient is at risk of developing **heart disease** using a machine learning model with **92% accuracy** — built with Flask, MongoDB, and scikit-learn. Course project for **Big Data Analytics (BCSE0158)**.
 
-Input Features
-Feature	Description
-age	Age of the patient
-sex	Sex of the patient
-cp	Chest pain type
-trestbps	Resting blood pressure
-chol	Serum cholesterol
-fbs	Fasting blood sugar
-restecg	Resting ECG results
-thalach	Maximum heart rate achieved
-exang	Exercise-induced angina
-oldpeak	ST depression induced by exercise
-slope	Slope of the peak exercise ST segment
-ca	Number of major vessels
-thal	Thalassemia result
-Output
+[![Stars](https://img.shields.io/github/stars/shsarv/Cardio-Monitor?style=social)](https://github.com/shsarv/Cardio-Monitor/stargazers)
+[![Forks](https://img.shields.io/github/forks/shsarv/Cardio-Monitor?style=social)](https://github.com/shsarv/Cardio-Monitor/forks)
 
-A binary prediction (heart disease: yes / no) along with a probability score showing how confident the model is.
+[🔗 Core ML Project](https://github.com/shsarv/Heart-Disease-Prediction) &nbsp;·&nbsp; [🐛 Report Bug](https://github.com/shsarv/Cardio-Monitor/issues) &nbsp;·&nbsp; [✨ Request Feature](https://github.com/shsarv/Cardio-Monitor/issues)
 
-Pipeline
-Data collection and exploration: Load the dataset (e.g., UCI Heart Disease), then analyze distributions, correlations and class balance.
-Preprocessing: Handle missing values and outliers, encode categorical variables and scale numeric features.
-Feature engineering and selection: Keep the most predictive features and reduce noise.
-Model training: Compare Logistic Regression, Random Forest, XGBoost, SVM and KNN, with hyperparameter tuning and cross-validation.
-Evaluation: Accuracy, precision, recall, F1-score, ROC-AUC and confusion matrix. Recall is prioritized so that few true patients are missed.
-Deployment: The best model is saved with joblib and served through a Streamlit web app.
-Monitoring and CI/CD (optional): Containerize with Docker and deploy to the cloud.
-Tech Stack
-Language: Python
-Data: Pandas, NumPy
-ML: Scikit-learn, XGBoost
-Visualization: Matplotlib, Seaborn
-Deployment: Streamlit
-DevOps: Docker
-Project Structure
-Medical-Heart-Disease-End-2-End-Predictor/
-├── data/
-│   └── raw/
-│       └── heart.csv          # Dataset
-├── models/                    # Saved model, metrics and plots
-├── src/
-│   ├── features.py            # Data loading and preprocessing
-│   ├── train.py               # Training, tuning and evaluation
-│   └── predict.py             # Inference helper
-├── app.py                     # Streamlit web app
-├── requirements.txt
-├── Dockerfile
+</div>
+
+---
+
+## ⚠️ Medical Disclaimer
+
+> **This application is for educational and research purposes only.** It does not constitute medical advice. Always consult a qualified cardiologist or medical professional for clinical decisions.
+
+---
+
+## 📌 Table of Contents
+
+- [About the Project](#-about-the-project)
+- [How It Works](#-how-it-works)
+- [Dataset & Features](#-dataset--features)
+- [Model & Performance](#-model--performance)
+- [Architecture](#-architecture)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Future Roadmap](#-future-roadmap)
+- [Tech Stack](#-tech-stack)
+- [References](#-references)
+
+---
+
+## 🔬 About the Project
+
+Heart disease is the leading cause of death globally. Early detection through continuous monitoring can significantly reduce mortality rates. **Cardio Monitor** combines:
+
+- A **machine learning classifier** (92% accuracy) trained on the Cleveland Heart Disease dataset
+- A **Flask web app** for real-time patient input and prediction
+- A **MongoDB** backend for storing patient records and prediction history
+- A **visualization module** for EDA and model insights
+- A roadmap toward **Apache Spark Streaming** for large-scale real-time data processing
+
+The core ML research and model building is documented in the companion repository: [shsarv/Heart-Disease-Prediction](https://github.com/shsarv/Heart-Disease-Prediction).
+
+---
+
+## ⚙️ How It Works
+
+```
+Patient Inputs Clinical Data via Web Form
+              │
+              ▼
+       Flask (app.py)
+       routes request to
+              │
+              ▼
+     prediction.py
+     Loads Heart_model1.pkl
+     Runs model.predict()
+              │
+       ┌──────┴──────┐
+       ▼             ▼
+   At Risk ❤️‍🩹    Not at Risk ✅
+       │
+       ▼
+  Result displayed on web page
+  Record saved to MongoDB (database.py)
+```
+
+---
+
+## 📊 Dataset & Features
+
+| Property | Details |
+|----------|---------|
+| **File** | `heart.csv` |
+| **Source** | Cleveland Heart Disease Dataset (UCI ML Repository) |
+| **Samples** | 303 patient records |
+| **Task** | Binary classification — Heart Disease (1) / No Heart Disease (0) |
+
+### Input Features
+
+| Feature | Description | Range |
+|---------|-------------|-------|
+| `age` | Age of patient | Years |
+| `sex` | Sex | 0 = Female, 1 = Male |
+| `cp` | Chest pain type | 0–3 |
+| `trestbps` | Resting blood pressure | mm Hg |
+| `chol` | Serum cholesterol | mg/dl |
+| `fbs` | Fasting blood sugar > 120 mg/dl | 0 / 1 |
+| `restecg` | Resting ECG results | 0–2 |
+| `thalach` | Maximum heart rate achieved | bpm |
+| `exang` | Exercise induced angina | 0 / 1 |
+| `oldpeak` | ST depression induced by exercise | Float |
+| `slope` | Slope of peak exercise ST segment | 0–2 |
+| `ca` | Number of major vessels coloured by fluoroscopy | 0–3 |
+| `thal` | Thalassemia | 0–3 |
+| `target` ⭐ | **Heart disease present** | 0 / 1 |
+
+---
+
+## 🤖 Model & Performance
+
+| Metric | Value |
+|--------|:-----:|
+| **Accuracy** | **92%** |
+| **Saved Model** | `Heart_model1.pkl` / `heartmodel.pkl` |
+| **Algorithm** | scikit-learn classifier (see core project) |
+| **Library** | scikit-learn + mlxtend |
+
+> Two model files are present in the repo: `Heart_model1.pkl` (primary, used by `prediction.py`) and `heartmodel.pkl` (earlier iteration). Both are serialized with `pickle`.
+
+> For full model building details — EDA, feature selection, algorithm comparison, and evaluation — see the core project: [shsarv/Heart-Disease-Prediction](https://github.com/shsarv/Heart-Disease-Prediction).
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────┐
+│              Flask Application              │
+│                  (app.py)                   │
+│                                             │
+│  ┌──────────┐  ┌────────────┐  ┌─────────┐ │
+│  │templates/│  │prediction  │  │database │ │
+│  │  HTML    │  │   .py      │  │  .py    │ │
+│  │  pages   │  │ ML model   │  │ MongoDB │ │
+│  └──────────┘  └────────────┘  └─────────┘ │
+│                                             │
+│  ┌──────────────────────────────────────┐   │
+│  │          static/                     │   │
+│  │   CSS · JS · images                  │   │
+│  └──────────────────────────────────────┘   │
+└─────────────────────────────────────────────┘
+         │                    │
+         ▼                    ▼
+  Heart_model1.pkl       MongoDB Atlas
+  (scikit-learn)         (patient records
+                         + predictions)
+```
+
+---
+
+## 📁 Project Structure
+
+```
+Cardio-Monitor/
+│
+├── 📂 heart disease prediction/     # Jupyter notebooks — EDA & model training
+├── 📂 static/                       # CSS, JS, images
+├── 📂 templates/                    # Jinja2 HTML templates (input form, result pages)
+├── 📂 __pycache__/
+│
+├── app.py                           # Flask entry point — routes and app config
+├── prediction.py                    # Loads Heart_model1.pkl, runs inference
+├── modelbuild.py                    # Model training and serialization script
+├── database.py                      # MongoDB connection and CRUD operations
+├── visualization.py                 # EDA and data visualization utilities
+│
+├── Heart_model1.pkl                 # Primary trained model (pickle)
+├── heartmodel.pkl                   # Alternate model iteration (pickle)
+├── heart.csv                        # Cleveland Heart Disease dataset
+├── Input Data.png                   # Screenshot of the web app input form
+│
+├── Procfile                         # Heroku deployment config
+├── requirements.txt                 # Python dependencies
+├── .gitignore
 └── README.md
-Installation
-bash
-# Clone the repository
-git clone https://github.com/<your-username>/Medical-Heart-Disease-End-2-End-Predictor.git
-cd Medical-Heart-Disease-End-2-End-Predictor
+```
 
-# Create a virtual environment
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.7+
+- MongoDB (local or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/shsarv/Cardio-Monitor.git
+cd Cardio-Monitor
+```
+
+### 2. Set up environment
+
+```bash
 python -m venv venv
-source venv/bin/activate      # On Windows: venv\Scripts\activate
+source venv/bin/activate        # Linux / macOS
+venv\Scripts\activate           # Windows
 
-# Install dependencies
 pip install -r requirements.txt
-Usage
+```
 
-1. Add the dataset
+### 3. Configure MongoDB
 
-Download the Heart Disease dataset (UCI or Kaggle) and place it at data/raw/heart.csv.
+In `database.py`, update your MongoDB connection string:
 
-2. Train the model
+```python
+# Local MongoDB
+client = pymongo.MongoClient("mongodb://localhost:27017/")
 
-bash
-python src/train.py --data data/raw/heart.csv
+# MongoDB Atlas (cloud)
+client = pymongo.MongoClient("mongodb+srv://<user>:<password>@cluster.mongodb.net/")
+```
 
-This compares all models, saves the best one to models/model.joblib and writes metrics to models/metrics.json.
+### 4. Run the app
 
-3. Run the web app
+```bash
+python app.py
+```
 
-bash
-streamlit run app.py
+Navigate to → **http://127.0.0.1:5000**
 
-Open the app in your browser, enter the patient details and get an instant prediction with a probability score.
+### 5. Deploy to Heroku
 
-Results
-Model	Accuracy	Precision	Recall	F1	ROC-AUC
-Logistic Regression	-	-	-	-	-
-Random Forest	-	-	-	-	-
-XGBoost	-	-	-	-	-
-SVM	-	-	-	-	-
-KNN	-	-	-	-	-
+```bash
+heroku login
+heroku create cardio-monitor-app
+git push heroku main
+heroku open
+```
 
-Fill in the table with the metrics from models/metrics.json after training.
+> The `Procfile` already contains: `web: gunicorn app:app`
 
-Docker
-bash
-docker build -t heart-disease-predictor .
-docker run -p 8501:8501 heart-disease-predictor
-Key Benefits
-Fast, low-cost preliminary screening
-Supports early diagnosis and clinical decision-making
-Reproducible, deployable pipeline from raw data to a live app
-Future Work
-Add model explainability (SHAP / LIME)
-Validate on larger and more diverse datasets
-Add monitoring for data drift
-Set up CI/CD and cloud deployment
-Contributing
+---
 
-Contributions are welcome. Please open an issue first to discuss what you would like to change, then submit a pull request.
+## 🗺️ Future Roadmap
 
-License
+| Feature | Status |
+|---------|:------:|
+| Flask web app with MongoDB | ✅ Done |
+| 92% accuracy ML model | ✅ Done |
+| Heroku deployment | ✅ Done |
+| **Apache Spark Streaming** — real-time patient data ingestion | 🔜 Planned |
+| **PySpark MLlib** — large-scale distributed model training | 🔜 Planned |
+| **Deep Learning model** (Keras/TensorFlow) | 🔜 Planned |
+| Live demo deployment | 🔜 Planned |
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+---
+
+## 🛠️ Tech Stack
+
+**Current:**
+
+| Layer | Technology |
+|-------|-----------|
+| Language | Python 3.7+ |
+| Web Framework | Flask |
+| ML Library | scikit-learn, mlxtend |
+| Database | MongoDB (PyMongo) |
+| Model Serialization | Pickle |
+| Frontend | HTML5, CSS3, Bootstrap |
+| Deployment | Heroku (Procfile + gunicorn) |
+| Notebook | Jupyter |
+
+**Planned (Future):**
+
+| Layer | Technology |
+|-------|-----------|
+| Streaming | Apache Spark Streaming |
+| Distributed ML | PySpark MLlib |
+| Deep Learning | Keras / TensorFlow (DeepL) |
+| Database (scale) | MongoDB Atlas |
+
+---
+
+## 📚 References
+
+- [Cleveland Heart Disease Dataset — UCI ML Repository](https://archive.ics.uci.edu/ml/datasets/Heart+Disease)
+- [Core ML Project — shsarv/Heart-Disease-Prediction](https://github.com/shsarv/Heart-Disease-Prediction)
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [PyMongo Documentation](https://pymongo.readthedocs.io/)
+- [mlxtend Documentation](https://rasbt.github.io/mlxtend/)
+- [Apache Spark Streaming](https://spark.apache.org/streaming/)
+
+---
+
+<div align="center">
+
+**Created by [Sarvesh Kumar Sharma](https://github.com/shsarv)**
+
+Course Project — Big Data Analytics (BCSE0158)
+
+⭐ Star this repo if you found it helpful!
+
+</div>
